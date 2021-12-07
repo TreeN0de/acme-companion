@@ -219,6 +219,16 @@ function update_cert {
         --ca-file "${certificate_dir}/chain.pem" \
         --fullchain-file "${certificate_dir}/fullchain.pem" \
     )
+    if [[ -n "$PRE_HOOK" ]]; then
+	params_issue_arr+=( \
+		--pre-hook "$PRE_HOOK" \
+	)
+    fi
+    if [[ -n "$POST_HOOK" ]]; then
+	params_issue_arr+=( \
+		--post-hook "$POST_HOOK" \
+	)
+    fi
 
     [[ ! -d "$config_home" ]] && mkdir -p "$config_home"
     params_base_arr+=(--config-home "$config_home")
