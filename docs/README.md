@@ -22,6 +22,8 @@
 
 [Zero SSL](./Zero-SSL.md)
 
+[Pre- and Post-Hook](./Hooks.md)
+
 #### Troubleshooting:
 
 [Invalid / failing authorizations](./Invalid-authorizations.md)
