@@ -48,8 +48,8 @@ acme_pre_hook_key="Le_PreHook="
 acme_post_hook_key="Le_PostHook="
 acme_base64_start="'__ACME_BASE64__START_"
 acme_base64_end="__ACME_BASE64__END_'"
-pre_hook_command_base64=`echo -n "$pre_hook_command" | base64`
-post_hook_command_base64=`echo -n "$post_hook_command" | base64`
+pre_hook_command_base64=$(echo -n "$pre_hook_command" | base64)
+post_hook_command_base64=&(echo -n "$post_hook_command" | base64)
 
 acme_pre_hook="$(docker exec "$le_container_name" grep "$acme_pre_hook_key" "/etc/acme.sh/$container_email/${domains[0]}/${domains[0]}.conf")"
 acme_post_hook="$(docker exec "$le_container_name" grep "$acme_post_hook_key" "/etc/acme.sh/$container_email/${domains[0]}/${domains[0]}.conf")"
