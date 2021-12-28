@@ -25,7 +25,7 @@ function run_le_container {
       local cli_args_str
       IFS=' ' read -r -a cli_args_str <<< "${2:?}"
       cli_args_arr+=("${cli_args_str[0]}") #Head
-      cli_args_arr+=("$(echo${cli_args_str[@]:1})") #Tail
+      cli_args_arr+=("$(echo ${cli_args_str[@]:1})") #Tail
       shift 2
       ;;
 
