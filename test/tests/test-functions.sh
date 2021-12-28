@@ -30,7 +30,7 @@ function run_le_container {
       ;;
 
       *) #Legacy Option
-      local cli_args_str="$(1:?)"
+      local cli_args_str="${1:?}"
       for arg in $cli_args_str; do
         cli_args_arr+=("$arg")
       done
