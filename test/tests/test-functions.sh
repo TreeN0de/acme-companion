@@ -20,7 +20,6 @@ function run_le_container {
   local flag="$1"
 
     case $flag in
-
       -c|--cli-args) #only one value per flag. Multiple args = use flag multiple times 
       local cli_args_str
       IFS=' ' read -r -a cli_args_str <<< "${2:?}"
