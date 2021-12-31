@@ -61,7 +61,6 @@ function run_le_container {
     "${cli_args_arr[@]}" \
     --env "DOCKER_GEN_WAIT=500ms:2s" \
     --env "TEST_MODE=true" \
-    --env "DHPARAM_BITS=256" \
     --env "DEBUG=1" \
     --label com.github.jrcs.letsencrypt_nginx_proxy_companion.test_suite \
     "$image" > /dev/null; \

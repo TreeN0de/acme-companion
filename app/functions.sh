@@ -10,6 +10,20 @@ if [[ "$DEBUG" == true ]]; then
   DEBUG=1 && export DEBUG
 fi
 
+function parse_true() {
+	case "$1" in
+
+		true | True | TRUE | 1)
+		return 0
+		;;
+
+		*)
+		return 1
+		;;
+
+	esac
+}
+
 [[ -z "${VHOST_DIR:-}" ]] && \
  declare -r VHOST_DIR=/etc/nginx/vhost.d
 [[ -z "${START_HEADER:-}" ]] && \
@@ -43,7 +57,11 @@ function ascending_wildcard_locations {
     until [[ "$domain" =~ $regex ]]; do
       first_label="${domain%%.*}"
       domain="${domain/${first_label}./}"
-      echo "*.${domain}"
+      if [[ -z "$domain" ]]; then
+        return
+      else
+        echo "*.${domain}"
+      fi
     done
 }
 
@@ -59,7 +77,11 @@ function descending_wildcard_locations {
     until [[ "$domain" =~ $regex ]]; do
       last_label="${domain##*.}"
       domain="${domain/.${last_label}/}"
-      echo "${domain}.*"
+      if [[ -z "$domain" ]]; then
+        return
+      else
+        echo "${domain}.*"
+      fi
     done
 }
 

@@ -1,6 +1,6 @@
-FROM golang:1.16.7-alpine AS go-builder
+FROM golang:1.17.5-alpine AS go-builder
 
-ENV DOCKER_GEN_VERSION=0.7.6
+ENV DOCKER_GEN_VERSION=0.8.0
 
 # Build docker-gen
 RUN apk add --no-cache --virtual .build-deps git \
@@ -15,12 +15,12 @@ RUN apk add --no-cache --virtual .build-deps git \
     && rm -rf /go/docker-gen \
     && apk del .build-deps
 
-FROM alpine:3.13.5
+FROM alpine:3.15.0
 
 LABEL maintainer="Nicolas Duchon <nicolas.duchon@gmail.com> (@buchdag)"
 
 ARG GIT_DESCRIBE
-ARG ACMESH_VERSION=2.8.8
+ARG ACMESH_VERSION=2.9.0
 
 ENV COMPANION_VERSION=$GIT_DESCRIBE \
     DOCKER_HOST=unix:///var/run/docker.sock \
