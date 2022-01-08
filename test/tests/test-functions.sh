@@ -93,11 +93,11 @@ function run_nginx_container {
       shift 2
       ;;
 
-      -c|--cli-args)
-      local cli_args_str="${2:?}"
-      for arg in $cli_args_str; do
-        cli_args_arr+=("$arg")
-      done
+      -c|--cli-args) #only one value per flag. Multiple args = use flag multiple times 
+      local cli_args_str
+      IFS=' ' read -r -a cli_args_str <<< "${2:?}"
+      cli_args_arr+=("${cli_args_str[0]}") #Head
+      cli_args_arr+=("$(echo ${cli_args_str[@]:1})") #Tail
       shift 2
       ;;
 

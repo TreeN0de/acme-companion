@@ -30,6 +30,6 @@ You can also create test certificates per container (see [Test certificates](./L
 
 * `CERTS_UPDATE_INTERVAL` - 3600 seconds by default, this defines how often the container will check if the certificates require update.
 
-* `ACME_PRE_HOOK`  -  This command will be performed, before certificates are issued. The action is limited to the commands available inside the container. For example `--env "ACME_PRE_HOOK=echo 'start'"`. For more  information see [Pre- and Post-Hook](./Hooks.md)
+* `ACME_DEFAULT_PRE_HOOK`  -  This command will be performed, before certificates are issued. The action is limited to the commands available inside the container. For example `--env "ACME_DEFAULT_PRE_HOOK=echo 'start'"`. For more  information see [Pre- and Post-Hook](./Hooks.md)
 
-* `ACME_POST_HOOK`  -  This command will be performed, after certificates are issued. The action is limited to the commands available inside the container. For example `--env "ACME_POST_HOOK=echo 'end'"`. For more  information see [Pre- and Post-Hook](./Hooks.md)
+* `ACME_DEFAULT_POST_HOOK`  -  This command will be performed, after certificates are issued. The action is limited to the commands available inside the container. For example `--env "ACME_DEFAULT_POST_HOOK=echo 'end'"`. For more  information see [Pre- and Post-Hook](./Hooks.md)

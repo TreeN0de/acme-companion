@@ -219,16 +219,39 @@ function update_cert {
         --ca-file "${certificate_dir}/chain.pem" \
         --fullchain-file "${certificate_dir}/fullchain.pem" \
     )
-    if [[ -n "$ACME_PRE_HOOK" ]]; then
-	params_issue_arr+=( \
-		--pre-hook "$ACME_PRE_HOOK" \
-	)
+
+    local -n prehook="ACME_${cid}_PRE_HOOK"
+    # If we don't have a Pre-Hook from the proxied container
+    # and ACME_DEFAULT_PRE_HOOK is set to a non empty value, use the latter.
+    if [[ -z "$prehook" ]]; then
+        if [[ -n "${ACME_DEFAULT_PRE_HOOK// }" ]]; then
+            prehook="$ACME_DEFAULT_PRE_HOOK"
+        else
+            unset prehook
+        fi
     fi
-    if [[ -n "$ACME_POST_HOOK" ]]; then
-	params_issue_arr+=( \
-		--post-hook "$ACME_POST_HOOK" \
-	)
+    if [[ -n "${prehook// }" ]]; then
+	    params_issue_arr+=( \
+		--pre-hook "${prehook}" \
+	    )
     fi
+
+    local -n posthook="ACME_${cid}_POST_HOOK"
+    # If we don't have a Post-Hook from the proxied container
+    # and ACME_DEFAULT_POST_HOOK is set to a non empty value, use the latter.
+    if [[ -z "$posthook" ]]; then
+        if [[ -n "${ACME_DEFAULT_POST_HOOK// }" ]]; then
+            posthook="$ACME_DEFAULT_POST_HOOK"
+        else
+            unset posthook
+        fi
+    fi
+    if [[ -n "${posthook// }" ]]; then
+	    params_issue_arr+=( \
+		--post-hook "${posthook}" \
+	    )
+    fi
+    
 
     [[ ! -d "$config_home" ]] && mkdir -p "$config_home"
     params_base_arr+=(--config-home "$config_home")
